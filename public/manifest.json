@@ -1,0 +1,33 @@
+{
+  "name": "OPLPS",
+  "short_name": "OPLPS",
+  "start_url": "/signin",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/Icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/Icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot-dekstop-1.png",
+      "sizes": "1900x878",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "screenshot-mobile-1.png",
+      "sizes": "320x320",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+-- CREATE TABLE `part` (
+--   `id` varchar(36) DEFAULT uuid(),
+--   `part_number` varchar(10) DEFAULT NULL,
+--   `type` varchar(1) DEFAULT NULL,
+--   `quantity` int DEFAULT NULL,
+--   `created_by` varchar(100) DEFAULT NULL,
+--   `created_on` datetime DEFAULT current_timestamp(),
+--   `updated_by` varchar(100) DEFAULT NULL,
+--   `updated_on` datetime DEFAULT current_timestamp(),
+--   `status` varchar(1) DEFAULT NULL,
+--   `approve_by` varchar(100) DEFAULT NULL,
+--   `approve_on` datetime DEFAULT current_timestamp(),
+--   PRIMARY KEY (`id`),
+--   FOREIGN KEY (`type`) REFERENCES `type`(`id`),
+--   FOREIGN KEY (`status`) REFERENCES `status`(`id`)
+-- ); 
+
+-- CREATE TABLE `issue_out` (
+--   `id` varchar(36) DEFAULT uuid(),
+--   `part_id` varchar(10) DEFAULT NULL,
+--   `quantity` int DEFAULT NULL,
+--   `remark` varchar(150) DEFAULT NULL,
+--   `created_by` varchar(100) DEFAULT NULL,
+--   `created_on` datetime DEFAULT current_timestamp(),
+--   `updated_by` varchar(100) DEFAULT NULL,
+--   `updated_on` datetime DEFAULT current_timestamp(),
+--   PRIMARY KEY (`id`),
+--   FOREIGN KEY (`part_id`) REFERENCES `part`(`id`)
+-- );
+
+-- CREATE TABLE `damage` (
+--   `id` varchar(36) DEFAULT uuid(),
+--   `part_id` varchar(10) DEFAULT NULL,
+--   `quantity` int DEFAULT NULL,
+--   `remark` varchar(150) DEFAULT NULL,
+--   `created_by` varchar(100) DEFAULT NULL,
+--   `created_on` datetime DEFAULT current_timestamp(),
+--   `updated_by` varchar(100) DEFAULT NULL,
+--   `updated_on` datetime DEFAULT current_timestamp(),
+--   PRIMARY KEY (`id`),
+--   FOREIGN KEY (`part_id`) REFERENCES `part`(`id`)
+-- );
+
+-- CREATE TABLE `type` (
+--   `id` varchar(36) DEFAULT uuid(),
+--   `code` varchar(5) DEFAULT NULL,
+--   `description` varchar(150) DEFAULT NULL,
+--   PRIMARY KEY (`id`)
+-- );
+
+-- CREATE TABLE `status` (
+--   `id` varchar(36) DEFAULT uuid(),
+--   `code` varchar(5) DEFAULT NULL,
+--   `description` varchar(150) DEFAULT NULL,
+--   PRIMARY KEY (`id`)
+-- );
+
+-- CREATE TABLE `role` (
+--   `id` varchar(36) DEFAULT uuid(),
+--   `code` varchar(5) DEFAULT NULL,
+--   `description` varchar(150) DEFAULT NULL,
+--   PRIMARY KEY (`id`)
+-- );
+
+-- CREATE TABLE `staff` (
+--   `id` varchar(36) NOT NULL,
+--   `fname` varchar(255) DEFAULT NULL,
+--   `lname` varchar(255) DEFAULT NULL,
+--   `password` varchar(255) DEFAULT NULL,
+--   `role` varchar (1) DEFAULT NULL,
+--   `created_by` varchar(100) DEFAULT NULL,
+--   `created_on` datetime DEFAULT CURRENT_TIMESTAMP,
+--   `updated_by` varchar(100) DEFAULT NULL,
+--   `updated_on` datetime DEFAULT CURRENT_TIMESTAMP,
+--   PRIMARY KEY (`id`),
+--   FOREIGN KEY (`role`) REFERENCES `role`(`id`)
+-- );
+
+CREATE TABLE `type` (
+  `type_id` varchar(36) DEFAULT (uuid()),
+  `code` varchar(5) DEFAULT NULL,
+  `description` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`type_id`)
+);
+
+CREATE TABLE `status` (
+  `status_id` varchar(36) DEFAULT (uuid()),
+  `code` varchar(5) DEFAULT NULL,
+  `description` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`status_id`)
+);
+
+CREATE TABLE `role` (
+  `role_id` varchar(36) DEFAULT (uuid()),
+  `code` varchar(5) DEFAULT NULL,
+  `description` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`role_id`)
+);
+
+CREATE TABLE `part` (
+  `part_id` varchar(36) DEFAULT (uuid()),
+  `part_number` varchar(10) DEFAULT NULL,
+  `type` varchar(36) DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `created_on` datetime DEFAULT current_timestamp(),
+  `updated_by` varchar(100) DEFAULT NULL,
+  `updated_on` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `status` varchar(36) DEFAULT NULL,
+  `approve_by` varchar(100) DEFAULT NULL,
+  `approve_on` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`part_id`),
+  FOREIGN KEY (`type`) REFERENCES `type`(`type_id`),
+  FOREIGN KEY (`status`) REFERENCES `status`(`status_id`)
+);
+
+CREATE TABLE `issue` (
+  `issue_id` varchar(36) DEFAULT (uuid()),
+  `part_id` varchar(36) DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
+  `remark` varchar(150) DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `created_on` datetime DEFAULT current_timestamp(),
+  `updated_by` varchar(100) DEFAULT NULL,
+  `updated_on` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`issue_id`),
+  FOREIGN KEY (`part_id`) REFERENCES `part`(`part_id`)
+);
+
+CREATE TABLE `damage` (
+  `damage_id` varchar(36) DEFAULT (uuid()),
+  `part_id` varchar(36) DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
+  `remark` varchar(150) DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `created_on` datetime DEFAULT current_timestamp(),
+  `updated_by` varchar(100) DEFAULT NULL,
+  `updated_on` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`damage_id`),
+  FOREIGN KEY (`part_id`) REFERENCES `part`(`part_id`)
+);
+
+CREATE TABLE `user` (
+  `user_id` varchar(36) NOT NULL DEFAULT (uuid()),
+  `fname` varchar(255) DEFAULT NULL,
+  `lname` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `role` varchar(36) DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `created_on` datetime DEFAULT current_timestamp(),
+  `updated_by` varchar(100) DEFAULT NULL,
+  `updated_on` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`user_id`),
+  FOREIGN KEY (`role`) REFERENCES `role`(`role_id`)
+);

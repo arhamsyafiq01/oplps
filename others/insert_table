@@ -1,0 +1,21 @@
+INSERT INTO `type` (code, description) VALUES
+('OCELL', 'Ocell'), 
+('PANEL', 'Panel');  
+
+
+INSERT INTO `status` (code, description) VALUES
+('DFT', 'Draft'),      
+('APP', 'Approve'),    
+('PEND', 'Pending');   
+
+
+INSERT INTO `role` (code, description) VALUES
+('SUPV', 'Supervisor'), 
+('LEAD', 'Leader'),     
+('OPER', 'Operator');   
+
+INSERT INTO `user` (`user_id`, `fname`, `lname`, `password`) 
+VALUES ('A001', 'Jane', 'Smith', '123');
+
+INSERT INTO `user` (`user_id`, `fname`, `lname`, `password`) 
+VALUES ('A002', 'Sam', 'Hugger', '123');
