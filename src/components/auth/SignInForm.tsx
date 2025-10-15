@@ -28,40 +28,40 @@ export default function SignInForm() {
     setIsLoading(true);
     try {
       const response = await fetch(LOGIN_API_URL, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json", // JSON instead of x-www-form-urlencoded
-  },
-  credentials: "include", // send cookies for session
-  body: JSON.stringify({
-    user_id: user_id,
-    password: password,
-  }),
-});
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: new URLSearchParams({
+          user_id: user_id,
+          password: password,
+        }),
+      });
 
-const data = await response.json();
+      const data = await response.json();
 
-if (response.ok) {
-  console.log("Login successful:", data);
+      if (response.ok) {
+        console.log("Login successful:", user_id);
+        setSuccessMessage(data.message || "Login successful!");
+        setErrorMessage(""); // clear error
 
-  setSuccessMessage(data.message || "Login successful!");
-  setErrorMessage(""); // clear any previous error
+        sessionStorage.setItem("user_id", user_id);
+        sessionStorage.setItem("user_fname", data.fname || "");
+        sessionStorage.setItem("user_lname", data.lname || "");
+        sessionStorage.setItem("user_role_code", data.role_code || ""); // <-- STORE ROLE CODE
 
-  // Save user info
-  sessionStorage.setItem("user_id", data.user_id || "");
-  sessionStorage.setItem("user_fname", data.fname || "");
-  sessionStorage.setItem("user_lname", data.lname || "");
-  sessionStorage.setItem("user_role_code", data.role_code || "");
-
-  setTimeout(() => {
-    navigate("/home");
-  }, 1000);
-} else {
-  console.error("Login failed:", data);
-  setSuccessMessage(""); // clear any old success
-  setErrorMessage(data.message || "Invalid ID and Password. Please try again.");
-  setTimeout(() => setErrorMessage(""), 3000);
-}
+        setTimeout(() => {
+          navigate("/home");
+        }, 1000);
+      } else {
+        console.error("Login failed:", data);
+        setSuccessMessage(""); // clear any old success
+        setErrorMessage(
+          data.message || "Invalid ID and Password. Please try again."
+        );
+        setTimeout(() => setErrorMessage(""), 3000);
+      }
     } catch (error) {
       console.error("Error during login:", error);
       setSuccessMessage(""); // clear any old success
