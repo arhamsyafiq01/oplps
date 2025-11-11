@@ -2,7 +2,7 @@
 
 OPLPS is a full-stack web application designed to track and manage loose manufacturing components, providing a real-time inventory management dashboard. The system features a multi-step approval workflow, role-based access control, a notification system for aging stock, and a complete action history log for traceability.
 
-![OPLPS Screenshot]([link_to_your_screenshot_1.png])
+![OPLPS Screenshot]([[link_to_your_screenshot_1.png](https://github.com/arhamsyafiq01/oplps/blob/main/public/screenshot-dekstop-1.png)])
 *Caption: The main 'Approved Part Inventory' dashboard.*
 
 ---
